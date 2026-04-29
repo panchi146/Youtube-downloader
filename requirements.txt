@@ -1,0 +1,6 @@
+PyQt6
+PyQt6-sip
+yt-dlp
+Pillow
+requests
+ffmpeg-python
