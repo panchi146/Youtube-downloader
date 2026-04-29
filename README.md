@@ -70,7 +70,7 @@ Một ứng dụng desktop mạnh mẽ dành cho Windows, giúp tải video YouT
 
 ```bash
 git clone https://github.com/panchi146/Youtube-downloader.git
-cd youtube_downloader_app
+cd youtube_downloader
 ```
 
 ---
