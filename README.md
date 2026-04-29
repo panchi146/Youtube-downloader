@@ -1,7 +1,7 @@
 # 🏗️ Cấu Trúc Dự án
 
 ```
-youtube_downloader_app/
+youtube-downloader/
 ├── main.py                         # Điểm chạy chính của ứng dụng
 ├── requirements.txt                # Danh sách thư viện Python cần cài
 ├── README.md                       # Hướng dẫn sử dụng đầy đủ
@@ -70,12 +70,12 @@ pip install -r requirements.txt
 
 Tải trực tiếp:
 1. Tải: https://ffmpeg.org/download.html
-2. Giải nén vào: `C:\ffmpeg`
+2. Giải nén vào: `Youtube-downloader\ffmpeg`
 3. Thêm vào PATH (Windows):
    - Nhấn `Windows key` → Gõ "Environment" → "Edit environment variables"
    - "Environment Variables" → New
    - Variable name: `PATH`
-   - Variable value: `C:\ffmpeg\bin`
+   - Variable value: `\Youtube-downloader\ffmpeg\bin`
    - OK
 
 Kiểm tra:
