@@ -1,221 +1,283 @@
-# 🏗️ Cấu Trúc Dự án
+# 🎵 YouTube Downloader Pro — Công cụ tải Video & MP3 chuyên nghiệp
 
-```
-youtube_downloader_app/
-├── main.py                         # Điểm chạy chính của ứng dụng
-├── requirements.txt                # Danh sách thư viện Python cần cài
-├── README.md                       # Hướng dẫn sử dụng đầy đủ
-├── QUICKSTART.md                   # Hướng dẫn chạy nhanh
-├── BUILD.md                        # Hướng dẫn build ra file .exe
-├── DEVELOPMENT.md                  # Tài liệu cho developer
-│
-├── app/                            # Mã nguồn chính của ứng dụng
-│   ├── __init__.py                 # Đánh dấu app là Python package
-│   │
-│   ├── ui/                         # Phần giao diện người dùng
-│   │   ├── __init__.py
-│   │   ├── main_window.py          # Cửa sổ chính, nút bấm, tab, xử lý UI
-│   │   └── styles.py               # Giao diện màu sắc, dark/light mode, CSS Qt
-│   │
-│   ├── core/                       # Logic xử lý chính
-│   │   ├── __init__.py
-│   │   ├── downloader.py           # Tải video/audio bằng yt-dlp + FFmpeg
-│   │   ├── analyzer.py             # Phân tích link YouTube, lấy title, thumbnail, format
-│   │   └── history.py              # Quản lý lịch sử tải xuống
-│   │
-│   ├── workers/                    # Luồng xử lý nền để UI không bị đơ
-│   │   ├── __init__.py
-│   │   ├── download_worker.py      # Thread tải file, gửi progress về UI
-│   │   └── analyze_worker.py       # Thread phân tích link YouTube
-│   │
-│   └── utils/                      # Hàm tiện ích và cấu hình
-│       ├── __init__.py
-│       ├── helpers.py              # Format dung lượng, thời gian, kiểm tra URL, tìm FFmpeg
-│       └── config.py               # Cấu hình app, theme, đường dẫn lưu, data path
-│
-├── assets/                         # Tài nguyên giao diện
-│   ├── icon.png                    # Icon dạng ảnh PNG
-│   └── icon.ico                    # Icon dùng khi build file .exe
-│
-├── data/                           # Dữ liệu sinh ra khi chạy source
-│   ├── download_history.json       # Lịch sử tải xuống
-│   └── config.json                 # Cài đặt người dùng
-│
-└── ffmpeg/                         # FFmpeg portable đi kèm app
-    └── bin/
-        ├── ffmpeg.exe              # Công cụ ghép video/audio, convert MP3/MP4
-        └── ffprobe.exe             # Công cụ đọc thông tin file media
+Một ứng dụng desktop mạnh mẽ dành cho Windows, giúp tải video YouTube với chất lượng gốc, tải nhạc MP3 nhanh chóng, phân tích link thông minh và quản lý lịch sử tải xuống một cách chuyên nghiệp.
 
-```
-# 🚀 Quick Start - YouTube Downloader
+Ứng dụng được xây dựng bằng Python + PyQt5, kết hợp yt-dlp và FFmpeg để mang lại trải nghiệm tải xuống ổn định, nhanh và dễ sử dụng.
 
-Hướng dẫn nhanh để bắt đầu sử dụng ứng dụng trong 5 phút!
+---
 
-## ⚡ Cài đặt Nhanh (5 phút)
+# ✨ Tính năng nổi bật
 
-### 1. Cài đặt Dependencies
+## 🎬 Tải Video YouTube chất lượng gốc
+
+* Tải video YouTube với chất lượng cao nhất
+* Hỗ trợ nhiều định dạng video
+* Tự động ghép video + audio bằng FFmpeg
+* Giữ nguyên chất lượng gốc từ nguồn phát
+
+---
+
+## 🎵 Tải MP3 âm thanh chất lượng cao
+
+* Trích xuất audio từ video YouTube
+* Xuất file MP3 chất lượng cao
+* Tối ưu tốc độ tải xuống
+* Phù hợp nghe nhạc, podcast, bài giảng
+
+---
+
+## 🔍 Phân tích link thông minh
+
+* Tự động lấy tiêu đề video
+* Hiển thị thumbnail
+* Phân tích định dạng tải xuống
+* Kiểm tra chất lượng video/audio trước khi tải
+
+---
+
+## ⚡ Download đa luồng ổn định
+
+* Luồng nền riêng biệt giúp UI không bị đơ
+* Thanh tiến trình tải trực quan
+* Theo dõi trạng thái tải xuống realtime
+* Tăng độ ổn định khi tải file lớn
+
+---
+
+## 🕘 Lịch sử tải xuống
+
+* Lưu toàn bộ lịch sử tải file
+* Theo dõi các video đã tải
+* Quản lý dữ liệu tiện lợi
+* Không bị mất lịch sử sau khi đóng app
+
+---
+
+## 🎨 Giao diện hiện đại
+
+* Giao diện trực quan, dễ sử dụng
+* Dark mode / Light mode
+* Thiết kế tối ưu cho Windows
+* Trải nghiệm giống phần mềm thương mại
+
+---
+
+# 🚀 Hướng dẫn cài đặt
+
+---
+
+## Step 1: Clone Source Code
 
 ```bash
-# Mở Command Prompt tại thư mục youtube_downloader_app
+git clone https://github.com/panchi146/Youtube-downloader.git
+cd youtube_downloader_app
+```
+
+---
+
+## Step 2: Cài đặt Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-**Nếu lỗi**, thử:
+Nếu gặp lỗi:
+
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 2. Cài FFmpeg (1 phút)
+---
 
-Tải trực tiếp:
-1. Tải: https://ffmpeg.org/download.html
-2. Giải nén vào: `C:\ffmpeg`
-3. Thêm vào PATH (Windows):
-   - Nhấn `Windows key` → Gõ "Environment" → "Edit environment variables"
-   - "Environment Variables" → New
-   - Variable name: `PATH`
-   - Variable value: `C:\ffmpeg\bin`
-   - OK
+## Step 3: Cài đặt FFmpeg
+
+Tải trực tiếp tại:
+
+Giải nén vào:
+
+```text
+C:\ffmpeg
+```
+
+Thêm vào PATH của Windows:
+
+* Nhấn Windows
+* Tìm: `Environment Variables`
+* Chọn: `Edit environment variables`
+* Chọn: `Environment Variables`
+* Chỉnh biến `PATH`
+* Thêm:
+
+```text
+C:\ffmpeg\bin
+```
 
 Kiểm tra:
+
 ```bash
 ffmpeg -version
 ```
 
-### 3. Chạy Ứng dụng
+Nếu hiển thị version → thành công.
+
+---
+
+## Step 4: Chạy ứng dụng
 
 ```bash
 python main.py
 ```
-Xong! Ứng dụng sẽ khởi động 🎉
 
+Xong. Ứng dụng sẽ khởi động.
 
-# Hướng dẫn Build .exe - YouTube Downloader
+---
 
-Hướng dẫn chi tiết để tạo file .exe từ mã nguồn Python để phân phối trên Windows.
+# 🏗️ Cấu trúc dự án
 
-## 📋 Yêu cầu
+```text
+youtube_downloader/
+├── main.py
+├── requirements.txt
+├── README.md
+├── QUICKSTART.md
+├── BUILD.md
+│
+├── app/
+│   ├── ui/
+│   │   ├── main_window.py
+│   │   └── styles.py
+│   │
+│   ├── core/
+│   │   ├── downloader.py
+│   │   ├── analyzer.py
+│   │   └── history.py
+│   │
+│   ├── workers/
+│   │   ├── download_worker.py
+│   │   └── analyze_worker.py
+│   │
+│   └── utils/
+│       ├── helpers.py
+│       └── config.py
+│
+├── assets/
+│   ├── icon.png
+│   └── icon.ico
+│
+├── data/
+│   ├── download_history.json
+│   └── config.json
+│
+└── ffmpeg/
+```
 
-- Python 3.8+ đã cài đặt
-- Tất cả dependencies từ `requirements.txt` đã cài đặt
-- PyInstaller (sẽ cài dưới đây)
+Cấu trúc dự án được tổ chức rõ ràng giữa UI, xử lý logic, worker thread và tiện ích hỗ trợ giúp dễ bảo trì và mở rộng. 
 
-## 🔧 Các bước Build
+---
 
-### Bước 1: Cài đặt PyInstaller
+# 🔨 Build file .exe
+
+## Cài PyInstaller
 
 ```bash
 pip install pyinstaller
 ```
 
-Kiểm tra cài đặt thành công:
-```bash
-pyinstaller --version
-```
+---
 
-### Bước 2: Prepare File Icon (Tuỳ chọn)
-
-Nếu muốn có icon custom:
-
-1. Chuẩn bị file icon `.ico` (256x256 px hoặc lớn hơn)
-2. Đặt vào thư mục `assets/` với tên `icon.ico`
-
-Để chuyển đổi `.png` sang `.ico`:
-```bash
-pip install pillow
-python -c "from PIL import Image; Image.open('assets/icon.png').save('assets/icon.ico')"
-```
-
-### Bước 3: Build File .exe
+## Build ứng dụng
 
 ```bash
-python -m PyInstaller --onedir --windowed --name "YouTube Downloader" --icon=assets/icon.ico --add-data "ffmpeg;ffmpeg" --add-data "assets;assets" main.py
+pyinstaller --onedir --windowed --name "YouTube Downloader" --icon=assets/icon.ico --add-data "ffmpeg;ffmpeg" --add-data "assets;assets" main.py
 ```
 
-### Bước 4: Tìm File .exe
+---
 
-File .exe được tạo tại:
-```
+## File output
+
+```text
 dist/YouTube Downloader/
 ```
 
-## 🎨 Tạo Installer
-
-Để tạo installer chuyên nghiệp, sử dụng **Inno Setup**:
-
-### Bước 1: Cài đặt Inno Setup
-
-Tải từ: https://jrsoftware.org/isdl.php
-
-### Bước 2: Tạo Script Installer
-
-Tạo file `installer.iss` lưu tại thư mục chứ hàm main:
-
-```ini
-#define MyAppName "YouTube Downloader"
-#define MyAppVersion "1.0.0"
-#define MyAppPublisher "Panchi"
-#define MyAppExeName "YouTube Downloader.exe"
-
-[Setup]
-AppId={{F4D8C5F6-9D9A-4A4B-8A12-YOUTUBE-DOWNLOADER}}
-AppName={#MyAppName}
-AppVersion={#MyAppVersion}
-AppPublisher={#MyAppPublisher}
-DefaultDirName={autopf}\{#MyAppName}
-DefaultGroupName={#MyAppName}
-OutputDir=installer_output
-OutputBaseFilename=YouTube_Downloader_Setup
-SetupIconFile=assets\icon.ico
-Compression=lzma
-SolidCompression=yes
-WizardStyle=modern
-PrivilegesRequired=admin
-DisableProgramGroupPage=yes
-UninstallDisplayIcon={app}\{#MyAppExeName}
-
-[Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
-
-[Tasks]
-Name: "desktopicon"; Description: "Tạo biểu tượng ngoài Desktop"; GroupDescription: "Tùy chọn:"; Flags: unchecked
-
-[Files]
-Source: "dist\YouTube Downloader\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-
-[Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
-
-[Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "Mở {#MyAppName}"; Flags: nowait postinstall skipifsilent
-```
-
-### Bước 3: Build Installer
-
-Vào inno -> build -> Combile
-
-File installer sẽ tạo tại: `output/YouTube_Downloader_Setup_v1.0.0.exe`
-
-
-## 🎯 Tham số PyInstaller Hữu ích
-
-| Tham số | Ý nghĩa |
-|--------|---------|
-| `--onefile` | Tạo 1 file .exe duy nhất |
-| `--windowed` | Không hiển thị console window |
-| `--icon` | Thêm icon |
-| `--name` | Tên file .exe |
-| `--add-data` | Thêm file dữ liệu |
-| `--hidden-import` | Import thêm module |
-| `--collect-all` | Collect tất cả thư viện con |
 ---
 
-**Ghi chú**: Build process có thể mất vài phút tùy vào cấu hình máy.
-## 📚 Resources
+# 📦 Tạo bộ cài Setup (.exe)
 
-- [PyQt6 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt6/)
-- [yt-dlp Documentation](https://github.com/yt-dlp/yt-dlp)
-- [FFmpeg Documentation](https://ffmpeg.org/documentation.html)
-- [Python PEP 8](https://www.python.org/dev/peps/pep-0008/)
+Để tạo installer chuyên nghiệp, sử dụng:
+
+## Inno Setup
+
+Tải tại:
+
+Sau đó compile file:
+
+```text
+installer.iss
+```
+
+Kết quả:
+
+```text
+YouTube_Downloader_Setup.exe
+```
+
+Người dùng chỉ cần tải và cài như phần mềm thông thường.
+
+---
+
+# ☕ Tác giả 
+
+Được phát triển bởi:
+
+**Panchi**
+
+Email: phamvanchinhlqd@gmail.com
+
+Nếu dự án này hữu ích cho bạn, hãy ⭐ repository để hỗ trợ phát triển thêm nhiều tính năng mới.
+
+---
+
+# 📝 Tuyên bố miễn trừ trách nhiệm
+
+## Bảo mật là ưu tiên hàng đầu
+
+Ứng dụng hoạt động hoàn toàn trên thiết bị người dùng.
+
+* Không thu thập dữ liệu cá nhân
+* Không theo dõi lịch sử sử dụng
+* Không chia sẻ dữ liệu cho bên thứ ba
+
+---
+
+## Lưu ý sử dụng
+
+Công cụ này chỉ phục vụ cho mục đích học tập, lưu trữ cá nhân và nghiên cứu.
+
+Người dùng chịu trách nhiệm tuân thủ chính sách bản quyền nội dung từ nền tảng YouTube.
+
+---
+
+# 📜 Giấy phép
+
+Dự án được phát hành theo giấy phép MIT License.
+
+* Sử dụng cá nhân: miễn phí
+* Sử dụng thương mại: cần liên hệ tác giả
+
+Xem thêm tại file:
+
+Xem tệp [LICENSE](./LICENSE) để biết thêm thông tin.
+
+---
+
+# 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=panchi146/Youtube-downloader&type=Date)](https://star-history.com/#panchi146/Youtube-downloader&Date)
+
+Nếu dự án hữu ích, hãy để lại một ⭐ trên GitHub.
+
+Điều đó giúp dự án phát triển mạnh hơn và cải thiện nhiều tính năng trong tương lai.
+
+---
+
